@@ -21,9 +21,19 @@ class FastRandom
     {
         // @TODO You have to modify this ONE
         // Please don't return the ref :D
-        sleep(1);
-        
-        return $this->generateRandomNumbersLaRef();
+        $res = array();
+        $i = 0;
+
+        while ($i < $this->numberOfInteger){ 
+            $i++;
+            $x = rand(1, $this->numberOfInteger);
+            if (!(in_array($x, $res)))
+                array_push($res, $x);
+
+        }
+
+        return $res;
+;
     }
 
 
