@@ -24,7 +24,9 @@ class Brute
 
     public function force()
     {
-        return md5($this->origin);
-        // @TODO
+        if (strlen(base64_decode($this->hash)) == 4)
+        {
+            $this->origin = strlen(base64_decode($this->hash));
+        }
     }
 }

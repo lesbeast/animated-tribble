@@ -22,9 +22,40 @@ class Bobby
      */
     public function giveMoney($price)
     {
-        /** @TODO */
-
-        return false;
+        if ($this->total < $price)
+            return false;
+        $tmpPrice = $price;
+        while ($tmpPrice > 0 && !(empty($this->wallet)))
+        {
+            print("Here");
+            
+            $max = 0;
+            for ($i=0; $i < count($this->wallet); $i++)
+            {
+                print($this->wallet[$i] . "\n");
+                print(count($this->wallet) . " count\n");
+                if (is_numeric($this->wallet[$i]))
+                {
+                    if ($max < $this->wallet[$i])
+                    {
+                        $max = $this->wallet[$i];
+                    }
+                }
+            }
+            $i2 = 0;
+            while ($i2 < count($this->wallet) && $tmpPrice > 0)
+            {   
+                if (is_numeric($this->wallet[$i2]) && $this->wallet[$i2] == $max)
+                {
+                    print("Passed here");
+                    $tmpPrice = $tmpPrice - $max;
+                    unset($this->wallet[$i2]);
+                }
+                $i2++;
+            }
+        }
+        $this->computeTotal();
+        return true;
     }
 
     /**
