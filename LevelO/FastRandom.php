@@ -22,15 +22,16 @@ class FastRandom
         // @TODO You have to modify this ONE
         // Please don't return the ref :D
         $res = array();
-        $i = 0;
+        $i = 1;
 
-        while ($i < $this->numberOfInteger){ 
+        while ($i < $this->numberOfInteger +1){ 
+
+            array_push($res , $i);
             $i++;
-            $x = rand(1, $this->numberOfInteger);
-            if (!(in_array($x, $res)))
-                array_push($res, $x);
 
         }
+        shuffle($res);
+        
 
         return $res;
 ;
