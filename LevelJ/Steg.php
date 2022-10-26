@@ -147,7 +147,42 @@ class Steg
      */
     public function show($dst)
     {
-        $msg = '000010000100001000000';
+        $msg = '';
+
+
+        // Sentinelle pour parcourir notre message binarisé
+        $k = 0;
+        // Compteur de '1', pour arrêter la conversion dés que c'est fini
+        $stop = 0;
+
+        for ($i = 0; $i < $width; ++$i) {
+            for ($j = 0; $j < $height; ++$j) {
+
+                // Extraction du triplet de couleur, r (rouge), g (vert), b (bleu)
+                $rgb = imagecolorat($srcImg, $i, $j);
+                $r = ($rgb >> 16) & 0xFF;
+                $g = ($rgb >> 8) & 0xFF;
+                $b = $rgb & 0xFF;
+
+                // Tant qu'il y a des bits à planquer, on les planque.
+                // Le 6x'1' signe la fin du message à cacher
+                if ($stop <= 6) {
+                    // La valeur est stocké dans le bit de poids faible de la couleur bleu.
+                    // On regarde la valeur binaire du bleu
+                    $blue = decbin($b);
+
+                    $msg = $msg . $blue;
+                    // On gère ici la fin du "planquage" :)
+                    if ('1' === $char) {
+                        ++$stop;
+                    } else {
+                        $stop = 0;
+                    }
+                }
+            }
+        }
+
+
         $this->bin2Text($msg);
 
         return true;
