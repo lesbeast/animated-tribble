@@ -79,13 +79,42 @@ class Compress
                 $g = ($rgb >> 8) & 0xFF;
                 $b = $rgb & 0xFF;
                 $averageColor += ($r + $g + $b) / 3;
-
                 // @TODO - A COMPLETER -- COULEUR DOMINANTE
+                if( $r > $b && $r > $g)
+                {
+                    $colors['red'] = $colors['red'] + 1;
+                }
+                else if($b > $g && $b > $g)
+                {
+                    $colors['blue'] = $colors['blue'] + 1;
+                }
+                else if($g > $b && $g > $r)
+                {
+                    $colors['green'] = $colors['green'] + 1;
+                }
                 // fin @TODO
+
             }
         }
 
         // @TODO - A COMPLETER -- COULEUR DOMINANTE
+        if($colors['blue'] > $colors['red'] && $colors['blue']  > $colors['green'])
+        {
+            $this->infos['strongcolor'] = $this->trans[5];
+
+        }
+        else if($colors['red'] > $colors['blue'] && $colors['red'] > $colors['green'])
+        {
+            $this->infos['strongcolor'] = $this->trans[7];
+        }
+        else if($colors['green'] > $colors['blue'] && $colors['green'] > $colors['blue'])
+        {
+            $this->infos['strongcolor'] = $this->trans[10];
+        }
+        else 
+        {
+            $this->infos['strongcolor'] = $this->trans[13];
+        }
         // fin @TODO
 
         // On fait la moyenne des moyennes - On divise par 16 car notre tableau va de l'index 0 à 15
