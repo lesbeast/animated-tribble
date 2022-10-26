@@ -105,11 +105,11 @@ class Compress
         }
         else if($colors['red'] > $colors['blue'] && $colors['red'] > $colors['green'])
         {
-            $this->infos['strongcolor'] = $this->trans[7];
+            $this->infos['strongcolor'] = $this->trans[10];
         }
         else if($colors['green'] > $colors['blue'] && $colors['green'] > $colors['blue'])
         {
-            $this->infos['strongcolor'] = $this->trans[10];
+            $this->infos['strongcolor'] = $this->trans[7];
         }
         else 
         {
